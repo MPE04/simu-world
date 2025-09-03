@@ -10,8 +10,6 @@ import numpy as np
 # Data manipulation and analysis.
 import pandas as pd
 
-from mesa.visualization import SolaraViz
-
 # -------- Agent --------
 class Citizen(mesa.Agent):
     def __init__(self, model, is_producer=False):
@@ -53,19 +51,3 @@ class City(mesa.Model):
         self.agents.shuffle_do("step")
         self.datacollector.collect(self)
         
-
-
-# -------- Visualisation Solara --------
-def get_chart(model):
-    """Retourne les données du graphe"""
-    return model.datacollector.get_model_vars_dataframe()
-
-viz = mesa.visualization.SolaraViz(
-    City,
-    params={"N": 100, "workers": 20},  # paramètres initiaux du modèle
-    model_reporters={"CityFood": lambda m: m.city_food},  # suivi du stock
-)
-
-# Lance l'interface si on exécute le script
-if __name__ == "__main__":
-    viz.run()
