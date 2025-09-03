@@ -33,7 +33,7 @@ class Citizen(mesa.Agent):
 
 # -------- Modèle --------
 class City(mesa.Model):
-    def __init__(self, N=100, workers=20):
+    def __init__(self, N, workers):
         super().__init__()
         self.num_agents = N
         # self.schedule = mesa.time.SimultaneousActivation(self)
