@@ -1,11 +1,16 @@
-from dynamic_world import City
+from Location import Location
 
 # Data visualization tools.
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-model = City(100, 20)    
-for _ in range(30):
+agentNumber = 100
+workerNumber = 20
+stepNumber = 30
+
+model = Location(agentNumber, workerNumber)    
+
+for _ in range(stepNumber):
     model.step()
 
 food = model.datacollector.get_model_vars_dataframe()
