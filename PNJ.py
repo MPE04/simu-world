@@ -12,7 +12,7 @@ class PNJ(mesa.Agent):
     def __init__(self, model, is_producer=False):
         super().__init__(model)
         self.is_producer = is_producer
-        self.tick_counter = 00
+        self.tick_counter = 0
 
     def step(self):
         # Tous les agents consomment 1 nourriture
