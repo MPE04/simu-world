@@ -17,4 +17,8 @@ First, it’s a python prototype developped MESA to use the agent-baed model. Th
 
 When the prototype will have a good maturity, the project will be re-written in a more efficient language to manage more agent. Final langauage choosen is JAVA + MASON due to personnal knowledge.
 
+## Execute code
 
+Install all package in requirement.txt with pip, then run : 
+
+`solara run run_dashboard.py`
