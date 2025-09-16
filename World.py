@@ -33,7 +33,8 @@ class World(mesa.Model):
             self, 
             2, 
             food=self.city_food, 
-            cell=list(self.grid.all_cells))
+            cell=list(self.grid.all_cells),
+            name=["CityA", "CityB"])
         
         PNJ.create_agents(model=self, n=workers, is_producer=True)
         PNJ.create_agents(model=self, n=N-workers, is_producer=False)
