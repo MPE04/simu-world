@@ -13,15 +13,16 @@ class PNJ(mesa.Agent):
         super().__init__(model)
         self.is_producer = is_producer
         self.tick_counter = 0
+        self.type = "PNJ"
 
     def step(self):
         # Tous les agents consomment 1 nourriture
-        if self.model.city_food > 0:
-            self.model.city_food -= 1
+        if self.model.agents[0].food > 0:
+            self.model.agents[0].food -= 1
 
         # Les producteurs produisent tous les 5 ticks
         if self.is_producer:
             self.tick_counter += 1
             if self.tick_counter % 5 == 0:
-                self.model.city_food += 30
+                self.model.agents[0].food += 30
         

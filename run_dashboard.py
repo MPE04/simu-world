@@ -29,9 +29,8 @@ model_params = {
     },
 }
 
-print ("titi")
-CityFoodPlot = make_plot_component("CityFood")
-print ("toto")
+CityFoodPlot = make_plot_component("food_in_city")
+
 page = SolaraViz(
     model,  
     components=[CityFoodPlot],
