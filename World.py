@@ -17,7 +17,7 @@ def food_in_city(model):
     return [agent.food for agent in model.agents if agent.type == "City"][0]
 
 # -------- Modèle --------
-class Location(mesa.Model):
+class World(mesa.Model):
     def __init__(self, N, workers):
         super().__init__()
         self.num_agents = N

@@ -1,4 +1,4 @@
-from Location import Location
+from World import World
 
 # Data visualization tools.
 import seaborn as sns
@@ -8,7 +8,7 @@ agentNumber = 100
 workerNumber = 20
 stepNumber = 30
 
-model = Location(agentNumber, workerNumber)    
+model = World(agentNumber, workerNumber)    
 
 for _ in range(stepNumber):
     model.step()

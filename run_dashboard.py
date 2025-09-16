@@ -1,4 +1,4 @@
-from Location import Location
+from World import World
 
 from mesa.visualization import SolaraViz, make_plot_component
 
@@ -7,7 +7,7 @@ workerNumber = 20
 stepNumber = 30
 
 # --- Run simulation and plot ---
-model = Location(agentNumber, workerNumber)    
+model = World(agentNumber, workerNumber)    
 
 # --- SolaraViz dashboard ---
 model_params = {
