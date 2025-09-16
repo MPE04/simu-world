@@ -9,11 +9,12 @@ import pandas as pd
 
 # -------- Agent --------
 class City(FixedAgent):
-    def __init__(self, model, food, cell):
+    def __init__(self, model, food, cell, name):
         super().__init__(model)
         self.food = food
         self.cell = cell
         self.type = "City"
+        self.name = name
 
     def step(self):
         pass
