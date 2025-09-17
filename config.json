@@ -1,0 +1,10 @@
+{
+  "Paris": {
+    "agents": 12,
+    "workers": 50
+  },
+  "Lyon": {
+    "agents": 8,
+    "workers": 30
+  }
+}

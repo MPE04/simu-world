@@ -1,55 +1,42 @@
+import json
 from World import World
-
 from mesa.visualization import SolaraViz, make_plot_component, SpaceRenderer
 from mesa.visualization.components import AgentPortrayalStyle
 
+
 def agent_portrayal(agent):
-    if agent.food == 0 :
-        return AgentPortrayalStyle(color="green", size=20)
-    else:
-        return AgentPortrayalStyle(color="red", size=20)
+    return AgentPortrayalStyle(
+        color="green" if agent.food == 0 else "red",
+        size=20
+    )
 
-agentNumber = 100
-workerNumber = 20
-stepNumber = 30
+# --- Lire le JSON ---
+with open("config.json", "r", encoding="utf-8") as f:
+    city_data = json.load(f)
 
-# --- Run simulation and plot ---
-model = World(agentNumber, workerNumber)    
-
-# --- SolaraViz dashboard ---
+# --- Définir model_params avec le paramètre attendu ---
 model_params = {
-    "N": {
-        "type": "SliderInt",
-        "value": 50,
-        "label": "Number of agents:",
-        "min": 10,
-        "max": 100,
-        "step": 1,
-    },
-    "workers": {
-        "type": "SliderInt",
-        "value": 50,
-        "label": "Number of workers:",
-        "min": 10,
-        "max": 100,
-        "step": 1,
-    },
+    "city_data": {
+        "value": city_data
+    }
 }
+
+# --- Créer le modèle ---
+model = World(city_data)
 
 CityFoodPlot = make_plot_component("food_in_city")
 
 renderer = SpaceRenderer(model, backend="altair")
-
 renderer.draw_structure(
     node_kwargs={"color": "black", "filled": False, "strokeWidth": 5},
     edge_kwargs={"strokeDash": [6, 1]},
-)  # Do this to draw the underlying network and customize it
+)
 renderer.draw_agents(agent_portrayal)
 
 page = SolaraViz(
-    model,  
+    model,
     renderer,
     components=[CityFoodPlot],
-    model_params=model_params,
+    model_params=model_params,  # ✅ city_data déclaré ici
     name="Test MPE",
 )
