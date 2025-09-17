@@ -1,53 +1,64 @@
 import mesa
-
-
-# Has multi-dimensional arrays and matrices. Has a large collection of
-# mathematical functions to operate on these arrays.
 import numpy as np
-
-# Data manipulation and analysis.
 import pandas as pd
+import networkx as nx
+from mesa.discrete_space import CellCollection, Network
 
 from PNJ import PNJ
 from City import City   
-import networkx as nx
-from mesa.discrete_space import CellCollection, Network
 
 def food_in_city(model):
     return [agent.food for agent in model.agents if agent.type == "City"][0]
 
 # -------- Modèle --------
 class World(mesa.Model):
-    def __init__(self, N, workers):
+    def __init__(self, city_data: dict):
+        """
+        city_data est un dictionnaire chargé depuis un fichier JSON :
+        {
+            "Paris": {"agents": 12, "travailleurs": 50},
+            "Lyon": {"agents": 8, "travailleurs": 30}
+        }
+        """
         super().__init__()
-        self.num_agents = N
-        # prob = avg_node_degree / num_nodes
-        graph = nx.erdos_renyi_graph(n=2, p=1)
+        
+        # --- Normaliser l'entrée en cas de reset depuis SolaraViz ---
+        if isinstance(city_data, dict) and "value" in city_data:
+            city_data = city_data["value"]
+
+        # --- Construire un graphe avec autant de noeuds que de villes ---
+        num_cities = len(city_data)
+        graph = nx.erdos_renyi_graph(n=num_cities, p=1)  # fully connected
         self.grid = Network(graph, capacity=1, random=self.random)
-        # self.schedule = mesa.time.SimultaneousActivation(self)
 
-        # Stock de nourriture dans la ville
-        self.city_food = 0
-        
+        # --- Création des villes ---
         City.create_agents(
-            self, 
-            2, 
-            food=self.city_food, 
+            self,
+            num_cities,
+            food=0,
             cell=list(self.grid.all_cells),
-            name=["CityA", "CityB"])
+            name=list(city_data.keys())
+        )
         
-        PNJ.create_agents(model=self, n=workers, is_producer=True)
-        PNJ.create_agents(model=self, n=N-workers, is_producer=False)
+        print (city_data)
 
-        # Collecteur de données
+        # --- Création des PNJ (agents et travailleurs) ---
+        for city_name, infos in city_data.items():
+            workers = infos["workers"]
+            agents = infos["agents"]
+
+            PNJ.create_agents(model=self, n=workers, is_producer=True)
+            PNJ.create_agents(model=self, n=agents, is_producer=False)
+
+        # --- Collecteur de données ---
         self.datacollector = mesa.datacollection.DataCollector(
             model_reporters={"food_in_city": food_in_city},
-            agent_reporters={"is_producer": "is_producer", "food": lambda a: getattr(a, "food", None)},
+            agent_reporters={
+                "is_producer": "is_producer",
+                "food": lambda a: getattr(a, "food", None)
+            },
         )
-
-    
 
     def step(self):
         self.agents.shuffle_do("step")
         self.datacollector.collect(self)
-        
