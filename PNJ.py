@@ -1,13 +1,8 @@
 import mesa
+from logger_config import get_logger
 
-# Has multi-dimensional arrays and matrices. Has a large collection of
-# mathematical functions to operate on these arrays.
-import numpy as np
+logger = get_logger("PNJ")
 
-# Data manipulation and analysis.
-import pandas as pd
-
-# -------- Agent --------
 class PNJ(mesa.Agent):
     def __init__(self, model, cell, location, is_producer=False):
         super().__init__(model)
@@ -17,14 +12,16 @@ class PNJ(mesa.Agent):
         self.cell = cell
         self.location = location
 
+        logger.debug(f"Création d'un PNJ (is_producer={self.is_producer}) "
+                     f"à {getattr(self.location, 'name', 'Inconnu')}")
+
     def step(self):
-        # Tous les agents consomment 1 nourriture
         if self.location.food > 0:
             self.location.food -= 1
+            logger.debug(f"{self.unique_id} consomme 1 nourriture, reste {self.location.food}")
 
-        # Les producteurs produisent tous les 5 ticks
         if self.is_producer:
             self.tick_counter += 1
             if self.tick_counter % 5 == 0:
                 self.location.food += 30
-        
+                logger.info(f"{self.unique_id} PRODUIT 30 nourriture -> total {self.location.food}")

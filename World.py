@@ -7,6 +7,13 @@ from mesa.discrete_space import CellCollection, Network
 from PNJ import PNJ
 from City import City   
 
+from logger_config import get_logger
+logger = get_logger("World")
+
+# Exemple
+logger.info("Démarrage du modèle World")
+
+
 def food_in_city(model):
     return [agent.food for agent in model.agents if agent.type == "City"][0]
 
