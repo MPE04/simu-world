@@ -36,6 +36,7 @@ class World(mesa.Model):
             workers = infos["workers"]
             agents = infos["agents"]
             cell =self.grid.select_random_empty_cell(),
+            before = set(self.agents)
             City.create_agents(
                 self,
                 n=1,
@@ -43,9 +44,24 @@ class World(mesa.Model):
                 cell=cell,
                 name=city_name
             )
+            after = set(self.agents)
+            # Différence = l'agent qui vient d'être créé
+            new_city_agents = list(after - before)
             
-            PNJ.create_agents(model=self, n=workers, cell=cell, is_producer=True)
-            PNJ.create_agents(model=self, n=agents, cell=cell, is_producer=False)
+            if len(new_city_agents) != 1:
+                raise RuntimeError(f"Erreur : attendu 1 agent City, trouvé {len(new_city_agents)}")
+            city_agent = new_city_agents[0]  # 👈 c'est l'objet City qu'on vient de créer
+            
+            PNJ.create_agents(model=self, 
+                              n=workers, 
+                              cell=cell, 
+                              location=city_agent, 
+                              is_producer=True)
+            PNJ.create_agents(model=self, 
+                              n=agents, 
+                              cell=cell, 
+                              location=city_agent, 
+                              is_producer=False)
 
         # # --- Création des PNJ (agents et travailleurs) ---
         # for city_name, infos in city_data.items():
