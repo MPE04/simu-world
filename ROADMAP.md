@@ -11,7 +11,16 @@
   - [x] Some are producer and produce food
 - [x] Run world
 - [x] City food graph
-- [x] Graph woth Solara
+- [x] Graph with Solara
+
+
+## Step 1.1 : Consolidation
+
+- [x] Mange more than 1 cities
+- [x] Configuration done by json file
+- [x] Dispatch PNJ between cities
+- [x] PNJ linked to Cities (food for the moment)
+- [x] Add logging information 
 
 
 ## Step 2 : Add PNJ parameters and some randomisation
