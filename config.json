@@ -8,7 +8,7 @@
     "workers": 40
   },
   "Marseille": {
-    "agents": 50,
+    "agents": 100,
     "workers": 40
   }
 }
