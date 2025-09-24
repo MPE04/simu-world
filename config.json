@@ -1,7 +1,8 @@
 {
   "Paris": {
     "agents": 20,
-    "workers": 10
+    "workers": 10,
+    "population": 2000000
   },
   "Lyon": {
     "agents": 50,

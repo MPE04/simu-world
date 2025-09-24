@@ -35,17 +35,21 @@ class World(mesa.Model):
 
         # --- Création des villes ---
         for city_name, infos in city_data.items():
-            workers = infos["workers"]
-            agents = infos["agents"]
-            cell = self.grid.select_random_empty_cell(),
+            workers = infos.get("workers", 1)
+            agents = infos.get("workers", 1)
+            cell = self.grid.select_random_empty_cell()
+            
+            city_kwargs = {
+                "n": 1,
+                "food": 0,
+                "cell": self.grid.select_random_empty_cell(),
+                "name": city_name,
+            }
+            if "population" in infos:
+                city_kwargs["population"] = infos["population"]
+
             before = set(self.agents)
-            City.create_agents(
-                self,
-                n=1,
-                food=0,
-                cell=cell,
-                name=city_name
-            )
+            City.create_agents(self, **city_kwargs)
             after = set(self.agents)
             new_city_agents = list(after - before)
             if len(new_city_agents) != 1:

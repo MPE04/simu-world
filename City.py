@@ -14,12 +14,15 @@ logger = get_logger("City")
 
 # -------- Agent --------
 class City(FixedAgent):
-    def __init__(self, model, food, cell, name, population=0):
+    def __init__(self, model, food, cell, name, population=None):
         super().__init__(model)
         self.food = food
         self.cell = cell
         self.name = name
-        self.population = self.random.randint(0, 10**6)
+        if population is not None:
+            self.population = population
+        else:
+            self.population = self.random.randint(0, 10**6)
         self.tick_counter = 0
 
     def step(self):
