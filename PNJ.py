@@ -8,7 +8,6 @@ class PNJ(mesa.Agent):
         super().__init__(model)
         self.is_producer = is_producer
         self.tick_counter = 0
-        self.type = "PNJ"
         self.cell = cell
         self.location = location
 

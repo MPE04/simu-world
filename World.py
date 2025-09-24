@@ -71,6 +71,9 @@ class World(mesa.Model):
             model_reporters[f"food_{city_name}"] = (
                 lambda m, c=city_agent: c.food  # 👈 capturer city_agent
             )
+            model_reporters[f"pop_{city_name}"] = (
+                lambda m, c=city_agent: c.population  # 👈 capturer city_agent
+            )
 
         self.datacollector = mesa.datacollection.DataCollector(
             model_reporters=model_reporters

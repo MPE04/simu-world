@@ -22,8 +22,9 @@ plot_components = []
 i=1
 for city_name in city_data.keys():
     # 🔑 chaque ville aura sa propre clé dans le DataCollector : "food_<ville>"
-    comp, _ = make_plot_component(f"food_{city_name}")
-    plot_components.append((comp, i))  # tout sur la page 1
+    for type in ["food", "pop"]:
+        comp, _ = make_plot_component(f"{type}_{city_name}")
+        plot_components.append((comp, i))
     i=i+1
 
 # --- Créer le renderer ---
