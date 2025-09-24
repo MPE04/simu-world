@@ -1,7 +1,9 @@
 import mesa
 from logger_config import get_logger
+from pathlib import Path
 
-logger = get_logger("PNJ")
+log_file = Path(__file__).parent / "PNJ.log"
+logger = get_logger("PNJ", log_file=str(log_file))
 
 class PNJ(mesa.Agent):
     def __init__(self, model, cell, location, is_producer=False):
@@ -10,9 +12,6 @@ class PNJ(mesa.Agent):
         self.tick_counter = 0
         self.cell = cell
         self.location = location
-
-        logger.debug(f"Création d'un PNJ (is_producer={self.is_producer}) "
-                     f"à {getattr(self.location, 'name', 'Inconnu')}")
 
     def step(self):
         if self.location.food > 0:

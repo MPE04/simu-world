@@ -1,0 +1,59 @@
+{
+  "primary_resources": {
+    "wood": {
+      "display_name": "Bois",
+      "description": "Ressource de base récoltée dans les forêts",
+      "unit": "tonnes",
+      "base_value": 10
+    },
+    "iron_ore": {
+      "display_name": "Minerai de fer",
+      "description": "Extrait des mines, utilisé pour produire de l'acier",
+      "unit": "tonnes",
+      "base_value": 25
+    },
+    "grain": {
+      "display_name": "Blé",
+      "description": "Produit dans les champs pour nourrir la population",
+      "unit": "tonnes",
+      "base_value": 5
+    },
+    "water": {
+      "display_name": "Eau",
+      "description": "Nécessaire à la survie et à l'agriculture",
+      "unit": "m³",
+      "base_value": 1
+    }
+  },
+  "secondary_resources": {
+    "steel": {
+      "display_name": "Acier",
+      "description": "Produit en transformant du minerai de fer",
+      "recipe": {
+        "iron_ore": 2,
+        "coal": 1
+      },
+      "unit": "tonnes",
+      "base_value": 80
+    },
+    "bread": {
+      "display_name": "Pain",
+      "description": "Produit à partir de blé et d'eau, nourrit la population",
+      "recipe": {
+        "grain": 2,
+        "water": 1
+      },
+      "unit": "tonnes",
+      "base_value": 20
+    },
+    "planks": {
+      "display_name": "Planches",
+      "description": "Transforme le bois brut en matériaux de construction",
+      "recipe": {
+        "wood": 3
+      },
+      "unit": "tonnes",
+      "base_value": 30
+    }
+  }
+}

@@ -3,9 +3,9 @@ import logging
 import sys
 from pathlib import Path
 
-LOG_FILE = Path(__file__).parent / "simulation.log"
+# LOG_FILE = Path(__file__).parent / "simulation.log"
 
-def get_logger(name: str) -> logging.Logger:
+def get_logger(name: str, log_file: str = None) -> logging.Logger:
     """
     Retourne un logger global configuré avec :
       - Fichier : tous les niveaux (DEBUG+), réinitialisé à chaque lancement
@@ -23,7 +23,7 @@ def get_logger(name: str) -> logging.Logger:
 
         # --- Handler fichier (tout) ---
         # mode="w" => écrase le fichier à chaque démarrage
-        file_handler = logging.FileHandler(LOG_FILE, mode="w", encoding="utf-8")
+        file_handler = logging.FileHandler(log_file, mode="w", encoding="utf-8")
         file_handler.setLevel(logging.DEBUG)
 
         # --- Format commun ---

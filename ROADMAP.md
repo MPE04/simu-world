@@ -27,8 +27,8 @@
 ## Step 3 : increase static world capacity
 
 - [x] Remove self.type
-- [ ] Add city population : not only PNJ, but static number (high) by config file + random if nothing provided
-- [ ] Add city ressources (metal, type of food…) by config file
+- [x] Add city population : not only PNJ, but static number (high) by config file + random if nothing provided
+- [x] Add city ressources (metal, type of food…) by config file ==> generic feature OK
 - [ ] Add city production (manufactured things) by config file
 - [ ] When nothing provide in config file, create default features with randomisation
 - [ ] Create algo for production : link between population / ressource and population / production

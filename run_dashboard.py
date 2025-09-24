@@ -37,15 +37,18 @@ def population_table_component(model):
 
 # --- Lire le JSON ---
 with open("config.json", "r", encoding="utf-8") as f:
-    city_data = json.load(f)
+    world_data = json.load(f)
 
+with open("ressources.json", "r", encoding="utf-8") as f:
+    ressources_data = json.load(f)
+    
 # --- Créer le modèle ---
-model = World(city_data)
+model = World(world_data, ressources_data)
 
 # --- Créer les composants dynamiquement ---
 plot_components = []
 i = 1
-for city_name in city_data.keys():
+for city_name in world_data.keys():
     # ✅ Tu as déjà "pop_<ville>" et "food_<ville>" dans le DataCollector
     for t in ["food", "pop"]:
         comp, _ = make_plot_component(f"{t}_{city_name}")
@@ -68,6 +71,7 @@ page = SolaraViz(
     model,
     renderer,                # sera sur la page 0
     components=plot_components,
-    model_params={"city_data": {"value": city_data}},
+    model_params={"world_data": {"value": world_data},
+                  "ressources_data": {"value": ressources_data}},
     name="Test MPE",
 )
